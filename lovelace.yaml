@@ -1,0 +1,470 @@
+title: ''
+background: var(--background-image)
+views:
+  - title: Home
+    path: home
+    icon: mdi:home-assistant
+    visible:
+      - user: 76a02451e0db49dea64073a5f6419c6b
+      - user: f4f50e8ff8df4e548c48643f4750a79a
+    badges: []
+    cards:
+      - type: vertical-stack
+        cards:
+          - type: glance
+            entities:
+              - entity: person.person
+              - entity: person.person
+            show_icon: true
+            show_state: true
+            state_color: false
+          - type: horizontal-stack
+            cards:
+              - type: button
+                tap_action:
+                  action: navigate
+                  navigation_path: greatroom
+                entity: light.great_room
+                name: Great Room
+                icon_height: 30px
+                icon: mdi:home
+                show_state: false
+                hold_action:
+                  action: call-service
+                  service: light.turn_off
+                  service_data:
+                    transition: 5
+                  target:
+                    entity_id: light.great_room
+              - type: button
+                tap_action:
+                  action: navigate
+                  navigation_path: master
+                name: Master Suite
+                icon: mdi:bed
+                show_state: false
+                entity: light.master
+                hold_action:
+                  action: call-service
+                  service: light.turn_off
+                  service_data:
+                    transition: 5
+                  target:
+                    area_id: master_bedroom
+                icon_height: 30px
+          - type: horizontal-stack
+            cards:
+              - type: button
+                tap_action:
+                  action: navigate
+                  navigation_path: upstairs
+                name: Upstairs
+                icon_height: 30px
+                icon: mdi:home-floor-2
+                show_state: false
+                entity: light.upstairs
+                hold_action:
+                  action: call-service
+                  service: light.turn_off
+                  service_data:
+                    transition: 5
+                  target:
+                    entity_id: light.upstairs
+              - type: button
+                tap_action:
+                  action: navigate
+                  navigation_path: exterior
+                name: Exterior
+                icon_height: 30px
+                icon: mdi:tree
+                show_state: false
+                entity: light.exterior
+                hold_action:
+                  action: call-service
+                  service: light.turn_off
+                  service_data: {}
+                  target:
+                    entity_id:
+                      - light.lean_to
+                      - light.back_porch
+          - type: button
+            tap_action:
+              action: navigate
+              navigation_path: shop
+            name: Shop
+            icon_height: 20px
+            icon: mdi:toolbox
+            show_state: false
+            entity: light.shop_2
+            hold_action:
+              action: call-service
+              service: light.turn_off
+              service_data: {}
+              target:
+                entity_id: light.shop_2
+          - type: button
+            tap_action:
+              action: navigate
+              navigation_path: camera
+            name: Cameras
+            icon: hass:cctv
+            icon_height: 20px
+            show_state: false
+          - type: button
+            tap_action:
+              action: navigate
+              navigation_path: weather
+            icon: mdi:cloud-outline
+            name: Weather
+            icon_height: 20px
+  - icon: mdi:cctv
+    path: camera
+    visible: []
+    panel: true
+    title: Camera
+    badges: []
+    cards:
+      - cards:
+          - type: button
+            tap_action:
+              action: navigate
+              navigation_path: home
+            name: Home
+            icon: hass:home
+            icon_height: 20px
+          - type: horizontal-stack
+            cards:
+              - type: picture-entity
+                entity: camera.insideshop_frig_person
+                show_name: false
+                tap_action:
+                  action: none
+                hold_action:
+                  action: none
+                show_state: false
+              - type: picture-entity
+                entity: camera.frontyard_frig_car
+                show_name: false
+                show_state: false
+                tap_action:
+                  action: none
+                hold_action:
+                  action: none
+          - type: picture-entity
+            entity: camera.inside_shop_trigger
+            show_name: true
+            show_state: false
+            camera_view: live
+            name: Inside Shop
+            aspect_ratio: '16:9'
+          - type: picture-entity
+            entity: camera.front_yard
+            show_state: false
+            camera_view: live
+            aspect_ratio: '4:3'
+            name: ' Front Yard'
+        type: vertical-stack
+  - icon: mdi:weather-cloudy
+    panel: true
+    path: weather
+    title: Weather
+    visible: []
+    badges: []
+    cards:
+      - type: vertical-stack
+        cards:
+          - type: button
+            tap_action:
+              action: navigate
+              navigation_path: home
+            name: Home
+            icon: hass:home
+            icon_height: 20px
+            hold_action:
+              action: none
+            show_state: false
+          - type: weather-forecast
+            entity: weather.climacell_daily
+            secondary_info_attribute: humidity
+            name: ' '
+          - type: picture-entity
+            entity: camera._radar
+            show_name: false
+            show_state: false
+            hold_action:
+              action: none
+            camera_image: camera._radar
+            tap_action:
+              action: none
+          - type: picture-entity
+            entity: camera.regional_radar
+            show_state: false
+            show_name: false
+            tap_action:
+              action: none
+            hold_action:
+              action: none
+  - icon: mdi:cart
+    visible:
+      - user: 76a02451e0db49dea64073a5f6419c6b
+      - user: f4f50e8ff8df4e548c48643f4750a79a
+    path: grocery_list
+    panel: true
+    badges: []
+    cards:
+      - type: shopping-list
+        title: Grocery List
+  - icon: mdi:map-marker
+    panel: true
+    visible:
+      - user: 76a02451e0db49dea64073a5f6419c6b
+      - user: f4f50e8ff8df4e548c48643f4750a79a
+    path: map
+    badges: []
+    cards:
+      - type: map
+        entities:
+          - entity: person.person
+          - entity: person.person
+        dark_mode: true
+        hours_to_show: 36
+  - icon: mdi:tune-vertical
+    visible:
+      - user: 76a02451e0db49dea64073a5f6419c6b
+    path: stats
+    panel: true
+    badges: []
+    cards:
+      - type: vertical-stack
+        cards:
+          - type: entities
+            entities:
+              - entity: sensor.local_ip
+              - entity: sensor.last_boot
+              - entity: sensor.processor_use_percent
+              - entity: sensor.memory_use
+              - entity: sensor.disk_use_percent_home
+              - entity: binary_sensor.192_168_201_5
+              - entity: sensor.snapshot_backup
+              - entity: binary_sensor.snapshots_stale
+            state_color: false
+  - title: Downstairs
+    path: greatroom
+    icon: mdi:numeric-1-box
+    visible: []
+    badges: []
+    cards:
+      - type: vertical-stack
+        cards:
+          - type: button
+            tap_action:
+              action: navigate
+              navigation_path: home
+            name: Home
+            icon: hass:home
+            icon_height: 20px
+          - type: entities
+            title: Kitchen
+            entities:
+              - type: custom:slider-entity-row
+                entity: light.kitchen_kitchen_lights
+                toggle: true
+              - type: custom:slider-entity-row
+                entity: light.kitchen_cabinet_lights
+                toggle: true
+              - type: custom:slider-entity-row
+                entity: light.dining_table
+                toggle: true
+              - type: custom:slider-entity-row
+                entity: light.pendants
+                toggle: true
+          - type: entities
+            title: Living Room
+            entities:
+              - type: custom:slider-entity-row
+                entity: light.living_room
+                toggle: true
+              - type: custom:slider-entity-row
+                entity: light.living_room_entryway
+                toggle: true
+          - cards:
+              - entity: climate.house
+                type: thermostat
+                name: ' '
+            type: horizontal-stack
+  - title: ''
+    icon: mdi:numeric-2-box
+    path: upstairs
+    visible: []
+    badges: []
+    cards:
+      - type: vertical-stack
+        cards:
+          - type: button
+            tap_action:
+              action: navigate
+              navigation_path: home
+            name: Home
+            icon: hass:home
+            icon_height: 20px
+          - type: entities
+            entities:
+              - type: custom:slider-entity-row
+                entity: light.media_room_lights
+                toggle: true
+              - type: custom:slider-entity-row
+                entity: light.office_front
+                toggle: true
+              - type: custom:slider-entity-row
+                entity: light.office_rear
+                toggle: true
+              - type: custom:slider-entity-row
+                entity: light.attic_lights
+                toggle: true
+          - type: button
+            tap_action:
+              action: toggle
+            entity: switch.box_fan
+            show_state: false
+            icon_height: 40px
+          - type: custom:roku-card
+            entity: media_player.roku_express_4k
+            tv: false
+            apps:
+              - image: /local/youtube.png
+                app: YouTube
+                tap_action:
+                  action: call-service
+                  service: media_player.select_source
+                  service_data:
+                    source: YouTube
+                    entity_id: media_player.roku_express_4k
+              - image: /local/yttv.png
+                app: YouTube TV
+                tap_action:
+                  action: call-service
+                  service: media_player.select_source
+                  service_data:
+                    source: YouTube TV
+                    entity_id: media_player.roku_express_4k
+            volume_up:
+              tap_action:
+                action: call-service
+                service: remote.send_command
+                service_data:
+                  entity_id: remote.roku_express_4k
+                  command: play
+            volume_down:
+              double_tap_action:
+                action: call-service
+                service: remote.send_command
+                service_data:
+                  entity_id: remote.roku_express_4k
+                  command: play
+  - icon: mdi:numeric-3-box
+    path: shop
+    title: Shop
+    visible: []
+    badges: []
+    cards:
+      - type: vertical-stack
+        cards:
+          - type: button
+            tap_action:
+              action: navigate
+              navigation_path: home
+            name: Home
+            icon: hass:home
+            icon_height: 20px
+          - type: grid
+            cards:
+              - type: button
+                tap_action:
+                  action: toggle
+                entity: light.shop
+                show_state: false
+                icon_height: 40px
+              - type: button
+                tap_action:
+                  action: toggle
+                entity: light.storage_area
+                icon_height: 40px
+              - type: button
+                tap_action:
+                  action: toggle
+                entity: light.traffic_light
+                icon: mdi:traffic-light
+                icon_height: 40px
+                show_state: false
+              - type: button
+                tap_action:
+                  action: toggle
+                entity: light.texaco_sign
+                icon_height: 40px
+            square: false
+            columns: 2
+          - type: button
+            tap_action:
+              action: toggle
+            entity: switch.garagedoor
+            icon: mdi:garage
+            name: Open Garage Door
+            icon_height: 40px
+            hold_action:
+              action: none
+  - icon: mdi:numeric-4-box
+    path: master
+    title: Master Suite
+    visible: []
+    badges: []
+    cards:
+      - type: vertical-stack
+        cards:
+          - type: button
+            tap_action:
+              action: navigate
+              navigation_path: home
+            name: Home
+            icon: hass:home
+            icon_height: 20px
+          - type: entities
+            title: Master Suite
+            entities:
+              - type: custom:slider-entity-row
+                entity: light.master_bedroom
+                toggle: true
+              - type: custom:slider-entity-row
+                entity: fan.master_bedroom_ceiling_fan
+                toggle: true
+              - type: custom:slider-entity-row
+                entity: light.master_bath
+                toggle: true
+              - type: custom:slider-entity-row
+                entity: light.master_bedroom_closet
+                toggle: true
+  - path: exterior
+    icon: mdi:numeric-5-box
+    visible: []
+    badges: []
+    cards:
+      - type: vertical-stack
+        cards:
+          - type: button
+            tap_action:
+              action: navigate
+              navigation_path: home
+            name: Home
+            icon: hass:home
+            icon_height: 20px
+          - type: entities
+            title: Outside
+            entities:
+              - type: custom:slider-entity-row
+                entity: light.lean_to
+                toggle: true
+              - type: custom:slider-entity-row
+                entity: light.back_porch
+                toggle: true
+              - type: custom:slider-entity-row
+                entity: light.exterior_lights
+                toggle: true
